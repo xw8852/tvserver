@@ -1,22 +1,20 @@
 package com.msx7.josn.tvServer.pack.message.impl;
 
-import com.msx7.josn.tvServer.pack.IEncoder;
-import com.msx7.josn.tvServer.pack.message.MessageBody;
-import com.msx7.josn.tvServer.pack.message.MessageHead;
+import com.msx7.josn.tvServer.pack.message.Message;
 
 /**
  * Created by Josn on 2015/12/6.
  */
-public class ConnectionMessage implements MessageBody, MessageHead, IEncoder {
+public class ConnectionMessage extends Message {
 
     @Override
-    public String getBody() {
-        return "寻找机顶盒";
+    public byte[] getBody() {
+        return "寻找机顶盒".getBytes();
     }
 
     @Override
-    public String getDeviceCode() {
-        return "0001";
+    public byte[] getDeviceCode() {
+        return "0001".getBytes();
     }
 
     @Override
@@ -34,8 +32,5 @@ public class ConnectionMessage implements MessageBody, MessageHead, IEncoder {
         return 1;
     }
 
-    @Override
-    public byte[] encode() {
-        return new byte[0];
-    }
+
 }

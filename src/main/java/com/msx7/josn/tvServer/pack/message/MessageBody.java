@@ -8,5 +8,5 @@ public interface MessageBody {
      * 包的内容
      * @return
      */
-    public String getBody();
+    public byte[] getBody();
 }

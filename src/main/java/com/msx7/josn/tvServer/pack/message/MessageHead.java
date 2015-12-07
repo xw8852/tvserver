@@ -12,14 +12,14 @@ public interface MessageHead {
     /**
      * 包头长度
      */
-    public static final int LENGTH = 33;
+    public static final int LENGTH = 28;
 
     /**
      * 客户端唯一标示符 预留16位
      *
      * @return
      */
-    public String getDeviceCode();
+    public byte[] getDeviceCode();
 
     /***
      * 包长 预留4位
@@ -29,7 +29,7 @@ public interface MessageHead {
     public int getLength();
 
     /**
-     * 消息ID 预留9位
+     * 消息ID 预留4位
      *
      * @return
      */
