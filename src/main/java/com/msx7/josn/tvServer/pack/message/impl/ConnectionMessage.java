@@ -19,7 +19,7 @@ public class ConnectionMessage extends Message {
 
     @Override
     public int getLength() {
-        return 0;
+        return LENGTH + getBody().length;
     }
 
     @Override

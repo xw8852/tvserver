@@ -25,18 +25,18 @@ public abstract class Message implements MessageBody, MessageHead, IEncoder {
             int offset = 0;
             length = Math.min(16, length);
             offset = 16 - length;
-            System.arraycopy(_code, offset, bytes, 0, length);
+            System.arraycopy(_code, 0, bytes, offset, length);
         }
         int length = getLength();
         System.arraycopy(intToByteArray1(length), 0, bytes, 16, 4);
         System.arraycopy(intToByteArray1(getId()), 0, bytes, 20, 4);
-        System.arraycopy(intToByteArray1(getActionCode()), 0, bytes, 14, 4);
+        System.arraycopy(intToByteArray1(getActionCode()), 0, bytes, 24, 4);
 
         byte[] _body = getBody();
         if (_body.length > 0) {
             byte[] _bytes = new byte[LENGTH + _body.length];
-            System.arraycopy(bytes, 0, bytes, 0, LENGTH);
-            System.arraycopy(_body, 0, bytes, LENGTH, _body.length);
+            System.arraycopy(bytes, 0, _bytes, 0, LENGTH);
+            System.arraycopy(_body, 0, _bytes, LENGTH, _body.length);
             return _bytes;
         }
         return bytes;
