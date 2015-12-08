@@ -1,5 +1,8 @@
 package com.msx7.josn.tvServer.pack.message;
 
+import com.msx7.josn.tvServer.mima.MinaConstants;
+import com.msx7.josn.tvServer.pack.IEncoder;
+
 /**
  * Created by Josn on 2015/12/6.
  * 包头，包括四个部分：
@@ -8,11 +11,35 @@ package com.msx7.josn.tvServer.pack.message;
  * 包序号
  * 动作编码
  */
-public interface MessageHead {
+public interface MessageHead extends IEncoder {
     /**
      * 包头长度
      */
-    public static final int LENGTH = 28;
+    public static final int HEAD_LENGTH = 29;
+    /**
+     * 消息长度字段长度
+     */
+    public static final int MSG_LEN_COUNT = 4;
+    /**
+     * 客户端唯一标识符字段长度
+     */
+    public static final int MSG_LEN_CODE = 16;
+    /**
+     * 消息ID字段长度
+     */
+    public static final int MSG_LEN_ID = 4;
+    /**
+     * 动作编码字段长度
+     */
+    public static final int MSG_LEN_ACTION = 4;
+    /**
+     * 消息开始标识符长度
+     */
+    public static final int MSG_START_FLAG_WIDTH = 1;
+    /**
+     * 消息开始标识
+     */
+    public static final byte messageStartFlag = MinaConstants.MESSASGE_START_FLAG;
 
     /**
      * 客户端唯一标示符 预留16位

@@ -1,10 +1,12 @@
 package com.msx7.josn.tvServer;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
-import com.msx7.josn.tvServer.pack.message.impl.ConnectionMessage;
+import com.msx7.josn.tvServer.mima.server.MainMinaServer;
 
 import java.util.Arrays;
 
@@ -22,7 +24,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d("way", "time " + time + "," + time2);
         Log.d("way", "time " + String.valueOf(time).hashCode() + "," + String.valueOf(time2).hashCode());
         Log.d("way", "time  " + "," + Integer.parseInt("0001") + "," + Arrays.toString(bytes) + "," + bytes.length);
-        Log.d("way", "time  " + "," +Arrays.toString( new ConnectionMessage().encode()));
+//        Log.d("way", "time  " + "," +Arrays.toString( new ConnectionMessageBody().encode()));
 
+    }
+
+    public void goClient(View v) {
+        startActivity(new Intent(this, ClientActivity.class));
+    }
+
+    public void goServer(View v) {
+        startActivity(new Intent(this, ServerActivity.class));
     }
 }
