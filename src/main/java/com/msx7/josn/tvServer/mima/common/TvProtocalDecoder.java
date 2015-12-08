@@ -1,5 +1,7 @@
 package com.msx7.josn.tvServer.mima.common;
 
+import android.util.Log;
+
 import com.msx7.josn.tvServer.mima.MinaConstants;
 import com.msx7.josn.tvServer.pack.message.Message;
 import com.msx7.josn.tvServer.pack.message.MessageHead;
@@ -15,6 +17,7 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.util.Arrays;
 
 /**
  * Created by xiaowei on 2015/12/8.
@@ -82,6 +85,7 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
                 byte[] bytes = new byte[bufBytes.length - position];
                 System.arraycopy(bufBytes, position, bytes, 0, bufBytes.length - position);
                 head = new MessageHeadImpl(bytes);
+                Log.d("way","bytes:"+ Arrays.toString(bytes));
 //				head = new MessageHeadImpl(Arrays.copyOfRange(bufBytes, position,bufBytes.length));
             }
             buf.mark();
@@ -91,13 +95,24 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
             // messageBytes = originalBytes;
 
             // 消息的长度为消息头部长度加上消息体的长度
+            Log.d("way","head:"+(head==null));
+
             int getMessageLength =head.getLength();
+            Log.d("way","getMessageLength:   "+getMessageLength);
             //检查消息是否进行了分包，消息头消息长度大于定义的消息最大长度，则是分包的消息
             messageLength = getMessageLength > MinaConstants.MAX_MESSAFE_LENGTH ? MinaConstants.MAX_MESSAFE_LENGTH
                     : getMessageLength;
+            Log.d("way","messageLength:   "+messageLength);
+            Log.d("way","packHeadLength:   "+packHeadLength);
+            Log.d("way","buf.remaining():   "+buf.remaining());
+            Log.d("way","maxPackLength:   "+maxPackLength);
+            Log.d("way","boolean:   "+(messageLength >= packHeadLength
+                    && messageLength - packHeadLength <= buf.remaining()));
             // 检查读取的包头是否正常，不正常的话清空buffer
             if (messageLength < 0 || messageLength > maxPackLength) {
                 buf.clear();
+                Log.d("way","break:   ");
+
                 break;
             }
             // 读取正常的消息包，并写入输出流中，以便IoHandler进行处理

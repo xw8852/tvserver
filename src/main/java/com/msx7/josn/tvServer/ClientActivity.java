@@ -76,6 +76,7 @@ public class ClientActivity extends Activity {
                         Message message = (Message) o;
                         PackBody packBody = (PackBody) message.getMessageBody();
                         buffer.append("content:/r/n" + new String(packBody.body) + "/r/n");
+                        logView.setText(buffer.toString());
                     }
                 });
             }

@@ -26,7 +26,7 @@ public class MainMinaClient {
 //        return mainServer;
 //    }
 
-   public IoSession session;
+    public IoSession session;
     public IoConnector connector;
     public ConnectFuture future;
 
@@ -34,11 +34,10 @@ public class MainMinaClient {
         connector = new NioSocketConnector();
         connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TvProtocalCodecFactory(Charset.forName("UTF-8"))));
         connector.setHandler(MinaClientHandler.getInstances());
-         future = connector.connect(new InetSocketAddress(serverAdress, MinaConstants.MINA_PORT));
+        future = connector.connect(new InetSocketAddress(serverAdress, MinaConstants.MINA_PORT));
+        future.awaitUninterruptibly();// 等待连接创建完成
         session = future.getSession();
     }
-
-
 
 
 }

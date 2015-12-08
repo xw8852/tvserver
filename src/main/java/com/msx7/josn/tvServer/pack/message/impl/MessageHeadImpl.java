@@ -18,7 +18,7 @@ public class MessageHeadImpl implements MessageHead {
     int msgId;
 
     public MessageHeadImpl(byte[] bytes) {
-        if (bytes[0] != MSG_START_FLAG_WIDTH) {
+        if (bytes[0] != messageStartFlag) {
             return;
         }
         code = new byte[MSG_LEN_CODE];
