@@ -11,14 +11,11 @@ public class MinaConstants {
      */
     public static final int MINA_PORT = 8745;
 
-    /**
-     * mina客户端口号
-     */
-    public static final int MINA_CLIENT_PORT = 8775;
+
     /**
      * mina服务器Ip
      */
-    public static final String MINA_SERVER_IP = "127.0.0.1";
+    public static  String MINA_SERVER_IP = "127.0.0.1";
 
     /**
      * 消息开始标识符
@@ -43,6 +40,7 @@ public class MinaConstants {
 
     /**
      * 消息的最大长度
+     * 局域网适当增大
      */
     public static final int MAX_MESSAFE_LENGTH = 100;
 

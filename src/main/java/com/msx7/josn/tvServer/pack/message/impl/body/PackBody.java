@@ -47,6 +47,6 @@ public class PackBody implements MessageBody {
     }
 
     public int getBodyLength() {
-        return BODY_LENGTH;
+        return body.length;
     }
 }

@@ -46,12 +46,20 @@ public class MainMinaServer {
         chain.addLast("log", loggingFilter);
         chain.addLast("codec", new ProtocolCodecFilter(new TvProtocalCodecFactory(Charset.forName("UTF-8"))));
         chain.addLast("threadPool", new ExecutorFilter(Executors.newCachedThreadPool()));
+        acceptor.getSessionConfig().setReadBufferSize(1024);
         acceptor.setHandler(ServerMinaHandler.getInstances());
+        this.acceptor.setReuseAddress(true);//加上这句话，避免重启时提示地址被占用
         try {
             acceptor.bind(new InetSocketAddress(bindPort));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        acceptor.setCloseOnDeactivation(true);
+    }
+
+    public void close() {
+        acceptor.dispose();
+        mainServer = null;
     }
 
     public SocketAcceptor getAcceptor() {

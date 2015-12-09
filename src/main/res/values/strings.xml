@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TvServer</string>
+    <string name="serverIp">192.168.2.9</string>
 </resources>

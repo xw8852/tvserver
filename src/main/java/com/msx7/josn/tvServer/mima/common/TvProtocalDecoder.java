@@ -22,7 +22,7 @@ import java.util.Arrays;
 /**
  * Created by xiaowei on 2015/12/8.
  */
-public class TvProtocalDecoder extends ProtocolDecoderAdapter{
+public class TvProtocalDecoder extends ProtocolDecoderAdapter {
     private final AttributeKey CONTEXT = new AttributeKey(getClass(), "context");
     private final Charset charset;
     private int maxPackLength = MinaConstants.MAX_MESSAFE_LENGTH;
@@ -65,9 +65,22 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
         // 先把当前buffer中的数据追加到Context的buffer当中
         ctx.append(in);
         IoBuffer buf = ctx.getBuffer();
-        if (MinaConstants.MESSASGE_START_FLAG != buf.get(0)) {
-            throw new Exception("消息头错误");
+        int buflen = buf.array().length;
+
+        for (int i = 0; i < buflen; i++) {
+
+            if (i == buflen - 1 && MinaConstants.MESSASGE_START_FLAG != buf.get(i)) {
+                buf.clear();
+                throw new Exception("消息头错误");
+            } else if (MinaConstants.MESSASGE_START_FLAG == buf.get(i)) {
+                break;
+            }
         }
+//        if (MinaConstants.MESSASGE_START_FLAG != buf.get(0)) {
+//            Log.d("way", Arrays.toString(buf.array()));
+//            Log.d("way", "----" + MinaConstants.MESSASGE_START_FLAG);
+//
+//        }
         // 把position指向0位置，把limit指向原来的position位置
         buf.flip();
         // byte[] originalBytes = buf.array();
@@ -85,7 +98,7 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
                 byte[] bytes = new byte[bufBytes.length - position];
                 System.arraycopy(bufBytes, position, bytes, 0, bufBytes.length - position);
                 head = new MessageHeadImpl(bytes);
-                Log.d("way","bytes:"+ Arrays.toString(bytes));
+                Log.d("way", "bytes:" + Arrays.toString(bytes));
 //				head = new MessageHeadImpl(Arrays.copyOfRange(bufBytes, position,bufBytes.length));
             }
             buf.mark();
@@ -95,23 +108,23 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
             // messageBytes = originalBytes;
 
             // 消息的长度为消息头部长度加上消息体的长度
-            Log.d("way","head:"+(head==null));
+            Log.d("way", "head:" + (head == null));
 
-            int getMessageLength =head.getLength();
-            Log.d("way","getMessageLength:   "+getMessageLength);
+            int getMessageLength = head.getLength();
+            Log.d("way", "getMessageLength:   " + getMessageLength);
             //检查消息是否进行了分包，消息头消息长度大于定义的消息最大长度，则是分包的消息
             messageLength = getMessageLength > MinaConstants.MAX_MESSAFE_LENGTH ? MinaConstants.MAX_MESSAFE_LENGTH
                     : getMessageLength;
-            Log.d("way","messageLength:   "+messageLength);
-            Log.d("way","packHeadLength:   "+packHeadLength);
-            Log.d("way","buf.remaining():   "+buf.remaining());
-            Log.d("way","maxPackLength:   "+maxPackLength);
-            Log.d("way","boolean:   "+(messageLength >= packHeadLength
+            Log.d("way", "messageLength:   " + messageLength);
+            Log.d("way", "packHeadLength:   " + packHeadLength);
+            Log.d("way", "buf.remaining():   " + buf.remaining());
+            Log.d("way", "maxPackLength:   " + maxPackLength);
+            Log.d("way", "boolean:   " + (messageLength >= packHeadLength
                     && messageLength - packHeadLength <= buf.remaining()));
             // 检查读取的包头是否正常，不正常的话清空buffer
             if (messageLength < 0 || messageLength > maxPackLength) {
                 buf.clear();
-                Log.d("way","break:   ");
+                Log.d("way", "break:   ");
 
                 break;
             }
@@ -120,8 +133,8 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
                     && messageLength - packHeadLength <= buf.remaining()) {
                 // MessageType.bodyLengthMap.get(head.getMessageInfo())
                 int bodyBeginIndex = position + packHeadLength;
-				/*if (!head.isLastPackHead()) {
-					bodyEndIndex = bodyBeginIndex + maxPackLength;
+                /*if (!head.isLastPackHead()) {
+                    bodyEndIndex = bodyBeginIndex + maxPackLength;
 				} else {
 					// 得到最后一个包的limit，消息头的长度加
 					bodyEndIndex = bodyBeginIndex
@@ -130,7 +143,7 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
 							% MinaConstants.MAX_MESSAFE_LENGTH;
 				}*/
                 buf.position(bodyBeginIndex);
-                int bodyEndIndex= bodyBeginIndex + MinaConstants.MAX_BOYD_LENGTH;
+                int bodyEndIndex = bodyBeginIndex + head.getLength() - MessageHead.HEAD_LENGTH;
                 byte[] packBodyBytes = new byte[bodyEndIndex - bodyBeginIndex];
                 System.arraycopy(bufBytes, bodyBeginIndex, packBodyBytes, 0, bodyEndIndex - bodyBeginIndex);
                 PackBody packBody = new PackBody(packBodyBytes);
@@ -138,8 +151,8 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
                 buf.position(bodyEndIndex);
                 Message message = new MessageImpl(head, packBody);
                 out.write(message);
-				/*
-				 * MessageBody body = DecoderLib.getInstance()
+                /*
+                 * MessageBody body = DecoderLib.getInstance()
 				 * .getDecoder(head.getDecoderInfo()) .decode(messageBytes,
 				 * packHeadLength); Message message = new MessageImpl(head,
 				 * body); out.write(message);
@@ -157,16 +170,16 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter{
             temp.put(buf);
             int startIndex = 0;
             //获取下一条消息的开始标识位置
-            if(temp.get()!=MinaConstants.MESSASGE_START_FLAG){
+            if (temp.get() != MinaConstants.MESSASGE_START_FLAG) {
                 startIndex = temp.indexOf(MinaConstants.MESSASGE_START_FLAG);
             }
-            if(startIndex != -1){
+            if (startIndex != -1) {
                 temp.position(startIndex);
                 temp.limit(temp.remaining());
                 //temp.flip();
                 buf.clear();
                 buf.put(temp);
-            }else{
+            } else {
                 buf.clear();
             }
         } else {

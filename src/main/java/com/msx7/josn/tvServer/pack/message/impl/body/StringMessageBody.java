@@ -1,17 +1,20 @@
 package com.msx7.josn.tvServer.pack.message.impl.body;
 
-import android.text.TextUtils;
-
 import com.msx7.josn.tvServer.pack.message.MessageBody;
 
 /**
  * Created by xiaowei on 2015/12/8.
  */
 public class StringMessageBody implements MessageBody {
-    String content;
+
+    byte[] bytes;
 
     public StringMessageBody(String content) {
-        this.content = content;
+        this(content.getBytes());
+    }
+
+    public StringMessageBody(byte[] bytes) {
+        this.bytes = bytes;
     }
 
     /**
@@ -31,9 +34,10 @@ public class StringMessageBody implements MessageBody {
      */
     @Override
     public byte[] encode() {
-        if (!TextUtils.isEmpty(content)) {
-            return content.getBytes();
-        }
-        return new byte[0];
+        int _len = bytes.length;
+        byte[] _bytes = new byte[_len + MSG_END_FLAG_WIDTH];
+        System.arraycopy(bytes, 0, _bytes, 0, _len);
+        _bytes[_len] = messageEndFlag;
+        return _bytes;
     }
 }

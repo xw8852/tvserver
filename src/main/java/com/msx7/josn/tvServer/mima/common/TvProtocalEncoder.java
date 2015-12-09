@@ -1,5 +1,7 @@
 package com.msx7.josn.tvServer.mima.common;
 
+import android.util.Log;
+
 import com.msx7.josn.tvServer.mima.MinaConstants;
 import com.msx7.josn.tvServer.pack.message.Message;
 
@@ -29,6 +31,7 @@ public class TvProtocalEncoder extends ProtocolEncoderAdapter {
         // MessageHead head = message.getMessageHead();
         byte[] headBytes = message.getMessageHead().encode();
         byte[] bodyBytes = message.getMessageBody().encode();
+        Log.d("way", "count  " + message.getMessageHead().getLength() + "," + message.getMessageBody().getBodyLength());
         IoBuffer buf = IoBuffer.allocate(MinaConstants.MAX_MESSAFE_LENGTH).setAutoExpand(false);
         buf.put(headBytes);
         buf.put(bodyBytes);

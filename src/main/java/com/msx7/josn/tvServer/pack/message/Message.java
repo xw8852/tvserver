@@ -8,6 +8,7 @@ package com.msx7.josn.tvServer.pack.message;
  * 包序号 4
  * 动作编码 4
  */
+
 /**
  * 内部消息接口，所有通过协议栈发送的消息都须实现该接口.
  */

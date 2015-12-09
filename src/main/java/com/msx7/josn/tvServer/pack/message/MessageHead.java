@@ -15,9 +15,9 @@ public interface MessageHead extends IEncoder {
     /**
      * 包头长度
      */
-    public static final int HEAD_LENGTH = 29;
+    public static final int HEAD_LENGTH = 37;
     /**
-     * 消息长度字段长度
+     * 消息总长度字段长度
      */
     public static final int MSG_LEN_COUNT = 4;
     /**
@@ -37,6 +37,14 @@ public interface MessageHead extends IEncoder {
      */
     public static final int MSG_START_FLAG_WIDTH = 1;
     /**
+     * 总的包数字段的长度
+     */
+    public static final int PACK_COUNT_WIDTH = 4;
+    /**
+     * 包的索引字段的长度
+     */
+    public static final int PACK_INDEX_WIDTH = 4;
+    /**
      * 消息开始标识
      */
     public static final byte messageStartFlag = MinaConstants.MESSASGE_START_FLAG;
@@ -55,6 +63,8 @@ public interface MessageHead extends IEncoder {
      */
     public int getLength();
 
+    public  void setLength(int length);
+
     /**
      * 消息ID 预留4位
      *
@@ -69,4 +79,6 @@ public interface MessageHead extends IEncoder {
      */
     public int getActionCode();
 
+    public int getPackCount();
+    public int getPackIndex();
 }

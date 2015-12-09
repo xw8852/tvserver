@@ -48,4 +48,6 @@ public class MessageImpl implements Message {
     public MessageBody getMessageBody() {
         return body;
     }
+
+
 }
