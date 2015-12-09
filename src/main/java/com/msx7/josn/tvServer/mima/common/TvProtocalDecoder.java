@@ -66,23 +66,33 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter {
         ctx.append(in);
         IoBuffer buf = ctx.getBuffer();
         int buflen = buf.array().length;
+        // 把position指向0位置，把limit指向原来的position位置
 
-        for (int i = 0; i < buflen; i++) {
-
-            if (i == buflen - 1 && MinaConstants.MESSASGE_START_FLAG != buf.get(i)) {
-                buf.clear();
-                throw new Exception("消息头错误");
-            } else if (MinaConstants.MESSASGE_START_FLAG == buf.get(i)) {
-                break;
-            }
+//        for (int i = 0; i < buflen; i++) {
+//
+//            if (i == buflen - 1 && MinaConstants.MESSASGE_START_FLAG != buf.get(i)) {
+//                buf.clear();
+//                throw new Exception("消息头错误");
+//            } else if (i < buf.limit() && MinaConstants.MESSASGE_START_FLAG == buf.get(i)) {
+//                buf.position(i);
+//                break;
+//            } else {
+//                break;
+//            }
+//        }
+        if(MinaConstants.MESSASGE_START_FLAG != buf.get(0)){
+            Log.d("way", "bytes:" + Arrays.toString(buf.array()));
+            buf.clear();
+            throw new Exception("消息头错误");
         }
+        buf.flip();
 //        if (MinaConstants.MESSASGE_START_FLAG != buf.get(0)) {
 //            Log.d("way", Arrays.toString(buf.array()));
 //            Log.d("way", "----" + MinaConstants.MESSASGE_START_FLAG);
 //
 //        }
-        // 把position指向0位置，把limit指向原来的position位置
-        buf.flip();
+
+
         // byte[] originalBytes = buf.array();
         int messageLength;// = originalBytes.length;
         byte[] bufBytes = buf.array();
@@ -98,7 +108,7 @@ public class TvProtocalDecoder extends ProtocolDecoderAdapter {
                 byte[] bytes = new byte[bufBytes.length - position];
                 System.arraycopy(bufBytes, position, bytes, 0, bufBytes.length - position);
                 head = new MessageHeadImpl(bytes);
-                Log.d("way", "bytes:" + Arrays.toString(bytes));
+
 //				head = new MessageHeadImpl(Arrays.copyOfRange(bufBytes, position,bufBytes.length));
             }
             buf.mark();

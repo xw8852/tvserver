@@ -11,12 +11,13 @@ import java.nio.charset.Charset;
  * Created by xiaowei on 2015/12/8.
  */
 public class TvProtocalCodecFactory implements ProtocolCodecFactory{
-    private final TvProtocalEncoder encoder;
-    private final TvProtocalDecoder decoder;
+    private final ProtocolEncoder encoder;
+    private final ProtocolDecoder decoder;
 
     public TvProtocalCodecFactory(Charset charset) {
         encoder = new TvProtocalEncoder(charset);
-        decoder = new TvProtocalDecoder(charset);
+//        decoder = new TvProtocalDecoder(charset);
+        decoder = new TvProtocalDecoder2();
     }
     @Override
     public ProtocolEncoder getEncoder(IoSession ioSession) throws Exception {
