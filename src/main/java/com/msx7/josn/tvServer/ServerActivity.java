@@ -73,9 +73,9 @@ public class ServerActivity extends Activity {
                         buffer.append("getRemoteAddress" + ioSession.getRemoteAddress() + "+\r\n");
                         PackBody packBody = (PackBody) message.getMessageBody();
                         byte[] bytes = new byte[packBody.getBodyLength() - 1];
-                        Log.d("way", Arrays.toString(packBody.encode()));
+//                        Log.d("way", Arrays.toString(packBody.encode()));
                         System.arraycopy(packBody.encode(), 0, bytes, 0, bytes.length);
-                        Log.d("way", Arrays.toString(bytes));
+//                        Log.d("way", Arrays.toString(bytes));
                         buffer.append("content:\r\n" + new String(bytes) + "\r\n");
                         textView.setText(buffer.toString());
                         scrollDown();

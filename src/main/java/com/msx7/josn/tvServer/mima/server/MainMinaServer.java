@@ -46,7 +46,7 @@ public class MainMinaServer {
         chain.addLast("log", loggingFilter);
         chain.addLast("codec", new ProtocolCodecFilter(new TvProtocalCodecFactory(Charset.forName("UTF-8"))));
         chain.addLast("threadPool", new ExecutorFilter(Executors.newCachedThreadPool()));
-        acceptor.getSessionConfig().setReadBufferSize(1024);
+        acceptor.getSessionConfig().setReadBufferSize(1024*500);
         acceptor.setHandler(ServerMinaHandler.getInstances());
         this.acceptor.setReuseAddress(true);//加上这句话，避免重启时提示地址被占用
         try {

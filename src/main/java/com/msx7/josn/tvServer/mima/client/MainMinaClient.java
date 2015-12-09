@@ -34,7 +34,7 @@ public class MainMinaClient {
         connector = new NioSocketConnector();
         connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TvProtocalCodecFactory(Charset.forName("UTF-8"))));
         connector.setHandler(MinaClientHandler.getInstances());
-        connector.getSessionConfig().setReadBufferSize(1024);
+        connector.getSessionConfig().setReadBufferSize(1024*500);
         future = connector.connect(new InetSocketAddress(serverAdress, MinaConstants.MINA_PORT));
         future.awaitUninterruptibly();// 等待连接创建完成
         session = future.getSession();

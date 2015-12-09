@@ -101,7 +101,15 @@ public class ClientActivity extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                StringBuffer buffer = new StringBuffer();
+                buffer.append(logView.getText().toString());
+                buffer.append("\r\n");
+                buffer.append(content.getText().toString());
+                logView.setText(buffer.toString());
+
                 MessageBody body = new StringMessageBody(content.getText().toString());
+                content.setText("");
                 Log.d("way", Arrays.toString(content.getText().toString().getBytes()));
                 Log.d("way", Arrays.toString(body.encode()));
                 MessageImpl impl = new MessageImpl(new MessageHeadImpl("kehuduan".getBytes(), body.getBodyLength() + MessageHead.HEAD_LENGTH, 0X02, 0X01), body);

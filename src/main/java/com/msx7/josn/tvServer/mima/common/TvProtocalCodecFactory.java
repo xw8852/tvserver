@@ -16,8 +16,8 @@ public class TvProtocalCodecFactory implements ProtocolCodecFactory{
 
     public TvProtocalCodecFactory(Charset charset) {
         encoder = new TvProtocalEncoder(charset);
-//        decoder = new TvProtocalDecoder(charset);
-        decoder = new TvProtocalDecoder2();
+        decoder = new TvProtocalDecoder(charset);
+//        decoder = new TvProtocalDecoder2();
     }
     @Override
     public ProtocolEncoder getEncoder(IoSession ioSession) throws Exception {

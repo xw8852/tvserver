@@ -96,8 +96,8 @@ public class MinaUtil {
                         return lhs.getMessageHead().getPackIndex() - rhs.getMessageHead().getPackIndex();
                     }
                 });
-                Log.d("way", "index---" + messageList.get(0).getMessageHead().getPackIndex());
                 for (int i = 0; i < packCount; i++) {
+                    Log.d("way", "index---" + messageList.get(i).getMessageHead().getPackIndex());
                     byte[] packMessageBody = messageList.get(i).getMessageBody().encode();
                     // 消息体除去结束标志位的长度
                     int length = MinaConstants.MAX_BOYD_LENGTH - 1;
