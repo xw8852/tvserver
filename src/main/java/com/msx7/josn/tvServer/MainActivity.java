@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.msx7.josn.tvServer.mima.server.MainMinaServer;
 
 import java.util.Arrays;
 

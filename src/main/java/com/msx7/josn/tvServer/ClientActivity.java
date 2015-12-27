@@ -9,19 +9,19 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.msx7.josn.tvServer.mima.client.MainMinaClient;
-import com.msx7.josn.tvServer.mima.client.handler.MinaClientHandler;
-import com.msx7.josn.tvServer.mima.common.util.IPUtil;
-import com.msx7.josn.tvServer.mima.common.util.MinaUtil;
-import com.msx7.josn.tvServer.pack.MessageHandlerLib;
-import com.msx7.josn.tvServer.pack.message.Message;
-import com.msx7.josn.tvServer.pack.message.MessageBody;
-import com.msx7.josn.tvServer.pack.message.MessageHandler;
-import com.msx7.josn.tvServer.pack.message.MessageHead;
-import com.msx7.josn.tvServer.pack.message.impl.MessageHeadImpl;
-import com.msx7.josn.tvServer.pack.message.impl.MessageImpl;
-import com.msx7.josn.tvServer.pack.message.impl.body.PackBody;
-import com.msx7.josn.tvServer.pack.message.impl.body.StringMessageBody;
+import com.msx7.josn.tvconnection.mima.client.MainMinaClient;
+import com.msx7.josn.tvconnection.mima.client.handler.MinaClientHandler;
+import com.msx7.josn.tvconnection.mima.common.util.IPUtil;
+import com.msx7.josn.tvconnection.mima.common.util.MinaUtil;
+import com.msx7.josn.tvconnection.pack.MessageHandlerLib;
+import com.msx7.josn.tvconnection.pack.message.Message;
+import com.msx7.josn.tvconnection.pack.message.MessageBody;
+import com.msx7.josn.tvconnection.pack.message.MessageHandler;
+import com.msx7.josn.tvconnection.pack.message.MessageHead;
+import com.msx7.josn.tvconnection.pack.message.impl.MessageHeadImpl;
+import com.msx7.josn.tvconnection.pack.message.impl.MessageImpl;
+import com.msx7.josn.tvconnection.pack.message.impl.body.PackBody;
+import com.msx7.josn.tvconnection.pack.message.impl.body.StringMessageBody;
 
 import org.apache.mina.core.session.IoSession;
 

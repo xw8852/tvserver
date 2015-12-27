@@ -31,10 +31,13 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -42,6 +45,8 @@ dependencies {
 //    compile fileTree(dir: 'libs', include: ['*.jar'])
 //    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile files('libs/mina-core-2.0.9.jar')
-    compile files('libs/slf4j-android-1.6.1-RC1.jar')
+//    compile files('libs/mina-core-2.0.9.jar')
+//    compile files('libs/slf4j-android-1.6.1-RC1.jar')
+    compile project(':tvconnection')
+
 }
